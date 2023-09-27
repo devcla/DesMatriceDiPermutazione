@@ -1,11 +1,8 @@
 package MatricePermutazione;
-import java.lang.Math;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Matrice {
-    private int[][] matrice;
+    private final int[][] matrice;
 
     public Matrice(){
         //cosi la matrice ha tutti le celle che valgono 0
@@ -21,24 +18,28 @@ public class Matrice {
         }
     }
 
+    private boolean valoreGiaPresente(int n) {
+        boolean valoreGiaTrovato = false;
+        outerLoop:
+        for (int k = 0; k < 8; k++) {
+            for (int j = 0; j < 8; j++) {
+                if(matrice[k][j] == n) {
+                    valoreGiaTrovato = true;
+                    break outerLoop;
+                }
+            }
+        }
+        return valoreGiaTrovato;
+    }
+
     public void Carica() {
         int i = 0;
         Random rand = new Random();
         boolean valoreGiaTrovato;
         while(i < 64) {
-            valoreGiaTrovato = false;
-
             int n = rand.nextInt(1,65);
 
-            outerLoop:
-            for (int k = 0; k < 8; k++) {
-                for (int j = 0; j < 8; j++) {
-                    if(matrice[k][j] == n) {
-                        valoreGiaTrovato = true;
-                        break outerLoop;
-                    }
-                }
-            }
+            valoreGiaTrovato = valoreGiaPresente(n);
 
             if(!valoreGiaTrovato) {
                 outerLoop:
